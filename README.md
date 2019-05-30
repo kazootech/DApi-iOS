@@ -3,12 +3,15 @@
 
 
 ## Version
-
 1.0.0
 
 
-## Usage
+## Installation
+#### CocoaPods
+Add `pod 'DApi-ios'` into your [Podfile](https://guides.cocoapods.org/syntax/podfile.html).
 
+
+## Usage
 To implement DApi, add a DApiView to the view controller:
  
     - (void)viewDidLoad {

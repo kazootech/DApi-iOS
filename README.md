@@ -6,10 +6,6 @@
 1.0.0
 
 
-## Installation
-#### CocoaPods
-Add `pod 'DApi-ios'` into your [Podfile](https://guides.cocoapods.org/syntax/podfile.html).
-
 
 ## Usage
 To implement DApi, add a DApiView to the view controller:
@@ -65,7 +61,7 @@ You can read / write from the drift with the following methods:
 
     //Write data to the drift.
     //Address ranges from 1 to 15 (Address 0 stores the unique id of the drift and is read-only).
-    //Data ranges from 0 to 65535.
+    //Data ranges from 0 to 15.
     //Callback returns 1 if request has successed, or an error code with negative value.
     - (void)writeToDriftAddress:(uint)address Data:(uint)data Callback:(void (^)(int))callback;
 

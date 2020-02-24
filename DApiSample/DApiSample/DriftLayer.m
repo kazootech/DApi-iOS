@@ -13,16 +13,16 @@
 }
 
 -(id) init {
-    //self = [super initWithFrame:NOTE_LENGTH_FRAME];
+    
     self = [super init];
     if (self) {
-        self.bounds = CGRectMake(0, 0, 300, 300);
-        self.cornerRadius = 150;
-        self.backgroundColor = [UIColor blackColor].CGColor;
+        self.bounds = CGRectMake(0, 0, 380, 380);
+        self.cornerRadius = 30;
+        self.backgroundColor = [UIColor darkGrayColor].CGColor;
         self.delegate = self;
         
         textLayer = [CATextLayer layer];
-        textLayer.frame = CGRectMake(-150, -30, 600, 30);
+        textLayer.frame = CGRectMake(-380/2, -30, 380*2, 30);
         textLayer.alignmentMode = kCAAlignmentCenter;
         textLayer.foregroundColor = [UIColor blackColor].CGColor;
         textLayer.fontSize = 16;
@@ -37,6 +37,11 @@
 - (void)setText:(NSString *)t {
     textLayer.string = t;
 }
+
+- (void)setRotation:(double)r {
+    self.transform =  CATransform3DMakeRotation(r, 0.0, 0.0, 1.0);
+}
+
 
 - (id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event {
     return (id)[NSNull null];

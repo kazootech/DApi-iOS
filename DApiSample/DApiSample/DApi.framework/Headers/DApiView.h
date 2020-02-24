@@ -24,4 +24,6 @@
 @property (nonatomic, assign) bool forwardTouchEvents;
 
 
+- (void)endAllDrifts;
+
 @end

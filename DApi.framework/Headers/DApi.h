@@ -21,5 +21,7 @@
 //Set it to enabled if the application does not support iPad Pro 11 aspect ratio (i.e. not full screen).
 + (void)setMarginFixEnabled:(BOOL)enabled;
 
++ (CGFloat)mmpp;
+
 @end
 

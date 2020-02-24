@@ -13,6 +13,7 @@
 
 
 - (void)setText:(NSString *)t;
+- (void)setRotation:(double)r;
 
 @end
 

@@ -38,10 +38,14 @@
     
     DriftLayer *layer = [[DriftLayer alloc] init];
     [layer setPosition:drift.center];
+    [layer setRotation:drift.rotation];
     [self.view.layer addSublayer:layer];
 
     [driftDict setObject:layer forKey:[NSNumber numberWithInt:[drift instanceId]]];
     [driftArray addObject:drift];
+
+    //Automatically read address 0 from drift.
+    [self readFromDrift:drift Address:0 MaxRetry:3];
 }
 
 
@@ -50,6 +54,7 @@
     
     DriftLayer *layer = [driftDict objectForKey:[NSNumber numberWithInt:[drift instanceId]]];
     [layer setPosition:drift.center];
+    [layer setRotation:drift.rotation];
 }
 
 
@@ -66,7 +71,7 @@
 
 #pragma mark - DAPi helper functions
 
-- (NSString *)getDriftErrorString:(int)errorInt {
+- (NSString *)getDriftErrorString:(int)errorInt isRead:(bool)isRead {
     NSString *errorString = @"";
     switch (errorInt) {
         case RequestErrorCancelled:
@@ -82,10 +87,14 @@
             errorString = @"Multiple request";
             break;
         case RequestErrorInvalidAddr:
-            errorString = @"Invalid address";
+            if (isRead) {
+                errorString = @"Invalid address (0-15)";
+            } else {
+                errorString = @"Invalid address (1-15)";
+            }
             break;
         case RequestErrorInvalidData:
-            errorString = @"Invalid data";
+            errorString = @"Invalid data (0-15)";
             break;
     }
     
@@ -104,7 +113,7 @@
         [weakDrift readFromDriftAddress:address Callback:^(int i) {
             //Error
             if (i < 0) {
-                NSString *errorString = [weakSelf getDriftErrorString:i];
+                NSString *errorString = [weakSelf getDriftErrorString:i isRead:true];
                 [layer setText:[NSString stringWithFormat:@"Read Address: %d, error: %@, retryCount: %d", address, errorString, retryCount]];
 
                 if (i != RequestErrorMultipleRequests && retryCount < maxRetry) {
@@ -140,7 +149,7 @@
         [weakDrift writeToDriftAddress:address Data:data Callback:^(int i) {
             //Error
             if (i < 0) {
-                NSString *errorString = [weakSelf getDriftErrorString:i];
+                NSString *errorString = [weakSelf getDriftErrorString:i isRead:false];
                 [layer setText:[NSString stringWithFormat:@"Write Address: %d, error: %@, retryCount: %d", address, errorString, retryCount]];
                 
                 if (i != RequestErrorMultipleRequests && retryCount < maxRetry) {

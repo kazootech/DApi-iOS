@@ -8,7 +8,7 @@
 
 
 //Error values returned from drift request callbacks.
-typedef enum RequestError : int {
+typedef NS_ENUM(int, RequestError) {
     RequestErrorCancelled = -1,             //The drift object is destroyed (e.g. left the screen) before completing the request.
     RequestErrorTimeout = -2,               //Failed to receive any signal from the drift before timeout.
     RequestErrorReadFailed = -3,            //Failed to receive a valid signal from the drift when performing a read request.
@@ -16,10 +16,10 @@ typedef enum RequestError : int {
     RequestErrorInvalidAddr = -5,           //Trying to send a request with an invalid address value.
     RequestErrorInvalidData = -6,           //Trying to send a request with an invalid data value.
     
-} RequestError;
+};
 
 
-
+//The representation of the detected drift.
 @interface Drift : NSObject {
     
 }
@@ -41,8 +41,8 @@ typedef enum RequestError : int {
 - (void)readFromDriftAddress:(uint)address Callback:(void (^)(int))callback;
 //Write data to the drift.
 //Address ranges from 1 to 15 (Address 0 stores the unique id of the drift and is read-only).
-//Data ranges from 0 to 65535.
-//Callback returns 1 if request has successed, or a negative error code.
+//Data ranges from 0 to 15.
+//Callback returns 1 if request has succeed, or a negative error code.
 - (void)writeToDriftAddress:(uint)address Data:(uint)data Callback:(void (^)(int))callback;
 
 @end

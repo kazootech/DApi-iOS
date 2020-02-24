@@ -88,13 +88,13 @@
             break;
         case RequestErrorInvalidAddr:
             if (isRead) {
-                errorString = @"Invalid address (0-15)";
+                errorString = @"Valid address range is 0-15";
             } else {
-                errorString = @"Invalid address (1-15)";
+                errorString = @"Valid address range is 1-15";
             }
             break;
         case RequestErrorInvalidData:
-            errorString = @"Invalid data (0-15)";
+            errorString = @"Valid data range is 0-15";
             break;
     }
     
@@ -114,7 +114,7 @@
             //Error
             if (i < 0) {
                 NSString *errorString = [weakSelf getDriftErrorString:i isRead:true];
-                [layer setText:[NSString stringWithFormat:@"Read Address: %d, error: %@, retryCount: %d", address, errorString, retryCount]];
+                [layer setText:[NSString stringWithFormat:@"Read Address: %d, Error: %@, RetryCount: %d", address, errorString, retryCount]];
 
                 if (i != RequestErrorMultipleRequests && retryCount < maxRetry) {
                     retryCount++;
@@ -127,7 +127,7 @@
                     readFromDrift = nil;
                 }
             } else {
-                [layer setText:[NSString stringWithFormat:@"Read Address: %d, result: %d", address, i]];
+                [layer setText:[NSString stringWithFormat:@"Read Address: %d, Result: %d", address, i]];
                 readFromDrift = nil;
             }
         }];
@@ -150,7 +150,7 @@
             //Error
             if (i < 0) {
                 NSString *errorString = [weakSelf getDriftErrorString:i isRead:false];
-                [layer setText:[NSString stringWithFormat:@"Write Address: %d, error: %@, retryCount: %d", address, errorString, retryCount]];
+                [layer setText:[NSString stringWithFormat:@"Write Address: %d, Error: %@, RetryCount: %d", address, errorString, retryCount]];
                 
                 if (i != RequestErrorMultipleRequests && retryCount < maxRetry) {
                     retryCount++;
@@ -163,7 +163,7 @@
                     writeToDrift = nil;
                 }
             } else {
-                [layer setText:[NSString stringWithFormat:@"Write Address: %d, result: %d", address, i]];
+                [layer setText:[NSString stringWithFormat:@"Write Address: %d, Result: %d", address, i]];
                 writeToDrift = nil;
             }
         }];

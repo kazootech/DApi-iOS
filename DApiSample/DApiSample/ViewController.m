@@ -177,6 +177,10 @@
 #pragma mark - Sample UI IBAction
 
 - (IBAction)clickRead:(id)sender {
+    
+    [addressText resignFirstResponder];
+    [dataText resignFirstResponder];
+    
     if (addressText.text != nil) {
         uint address = (uint)[addressText.text intValue];
         
@@ -194,6 +198,9 @@
 }
 
 - (IBAction)clickWrite:(id)sender {
+    
+    [addressText resignFirstResponder];
+    [dataText resignFirstResponder];
     
     if (addressText.text != nil) {
         uint address = (uint)[addressText.text intValue];
